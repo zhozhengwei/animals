@@ -1,0 +1,58 @@
+<template>
+  <header class="position-relative">
+        <div class="page-header min-vh-50" style="background-image: url('../assets/img/curved-images/curved14.jpg');">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-sm-9 text-center mx-auto mb-4">
+                        <h2 class="text-white mb-3">你可以做什么?</h2>
+                        <div class="row">
+                            <div class="col-md-8 col-7">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-search fa-2x"></i></span>
+                                    <input type="text" class="form-control" placeholder="Search after">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-5 text-start ps-0">
+                                <button type="button" class="btn bg-gradient-info w-100 mb-0 h-100">搜索</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="position-absolute w-100 z-index-1 bottom-0">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+<defs>
+<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+</defs>
+<g class="moving-waves">
+<use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40" />
+<use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
+<use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
+<use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
+<use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
+<use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,0.95" />
+</g>
+</svg>
+        </div>
+    </header>
+</template>
+
+<script>
+export default {
+  name:"ActionHeader",
+  data(){
+    return{
+
+    }
+  },
+  components:{
+
+  }
+}
+</script>
+
+<style>
+
+</style>

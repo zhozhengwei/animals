@@ -1,0 +1,161 @@
+<template>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7">
+        <!-- 第一段的博客表达 -->
+        <section class="py-5">
+          <NewPapers v-for="item in articleList" :key="item" :blog="item"></NewPapers>
+          
+        </section>
+        <!-- TODO 博客展现的形式（第二部分） -->
+        <!-- <section class="py-5">
+            <ListBlog></ListBlog>
+          </section> -->
+        <!-- todo end -->
+        <!-- 分页的列表 -->
+        <ul class="pagination pagination-primary mt-4 ml-2">
+          <li class="page-item">
+            <a class="page-link" href="javascript:;" aria-label="Previous">
+              <span aria-hidden="true">
+                <!-- <i class="fa fa-angle-double-left" aria-hidden="true"></i> -->
+                {{pageInfo.total}} 条
+              </span>
+            </a>
+          </li>
+          <li v-for="i in pageInfo.pages" @click.prevent="initData(i)" :key="i" :class="{'page-item  active':pageInfo.pageNum==i}" class="page-item">
+            <a class="page-link">{{i}}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="javascript:;" aria-label="Next">
+              <span aria-hidden="true">
+                <!-- <i class="fa fa-angle-double-right" aria-hidden="true"></i> -->
+                {{pageInfo.pageNum}}/{{pageInfo.pages}} 页
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- 右侧的活动模块 -->
+      <div class="col-lg-4 ml-auto">
+        <div class="pt-1 pb-5 position-sticky top-1 mt-lg-8 mt-5">
+          <!-- 创作的按钮 -->
+          <div v-if="showUser">
+            <h4 class="mt-5" align="left">创作</h4>
+            <EditBox class="my-3"></EditBox>
+          </div>
+          <!-- 订阅的输入框 -->
+          <h4 class="mt-5" align="left">头条新闻</h4>
+          <div class="card card-plain card-blog mt-4">
+            <div class="row">
+              <div class="col-lg-4 col-md-4">
+                <div class="card-image position-relative border-radius-lg">
+                  <div class="blur-shadow-image">
+                    <img
+                      class="img border-radius-lg"
+                      :src="host.cover"
+                      alt="curved11"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-8 col-md-8 my-sm-auto mt-3">
+                <h5 align="left">
+                  <a href="javascript:;" class="text-justify font-weight-normal"
+                    >{{host.title}}</a
+                  >
+                </h5>
+              </div>
+            </div>
+          </div>
+          <h4 align="left" class="my-3">订阅</h4>
+          <p class="text-justify">获得内容创作者第一时间出炉的内容创作</p>
+          <div class="my-3">
+            <input
+              type="text"
+              class="form-control mb-sm-0 mb-2"
+              placeholder="Email"
+            />
+          </div>
+          <button
+            type="button"
+            class="btn bg-gradient-primary"
+            style="position: relative; right: 0"
+          >
+            订阅
+          </button>
+
+          <!-- 活动的板块 -->
+          <h4 class="mt-5" align="left">活动</h4>
+          <a href="javascript::">
+            <div class="card justify-content-center mb-3">
+              <div class="card-body p-3">
+                <h6 class="mb-0" align="left">测试</h6>
+                <p class="mb-0 text-body" align="left">日期</p>
+              </div>
+              <div class="position-absolute end-0 me-3">
+                <i class="fas fa-angle-right"></i>
+              </div>
+            </div>
+          </a>
+          <!-- 头条新闻 不同的形式的展示形式 -->
+
+          <!-- todo 底部的标签 -->
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import {ref} from "vue";
+import NewPapers from "../card/NewPapers.vue";
+import EditBox from "../card/EditBox.vue";
+import API from "../../plugins/axios/index.js";
+
+export default {
+  name: "ContentCenter",
+  data() {
+    return {
+      //分页数据
+      pageInfo: {},
+      articleList:[],
+      host: {}
+    };
+  },
+  setup(){
+    let showUser = ref(true);
+    const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+    if(userinfo === null){
+      showUser = ref(false)
+    }
+    return{
+      showUser
+    }
+  },
+  components: {
+    NewPapers,
+    EditBox,
+  },
+  created() {
+    this.initData(1);
+  },
+  methods: {
+    initData: function (pageNum) {
+      API({
+        url: "article/list?pageNum=" + pageNum,
+        method: "post",
+        data: { type: 1 },
+      }).then((res) => {
+        console.log("收到的数据新闻数据", res.data.data);
+        this.articleList = res.data.data.list;
+        this.host = this.articleList[0];
+        console.log("收到的数据新闻列表===>", this.articleList);
+        this.pageInfo = res.data.data;
+      });
+    },
+  },
+};
+</script>
+
+<style>
+</style>
