@@ -14,7 +14,7 @@ import qs from 'qs'
 import axios from './plugins/axios/index.js';
 
 
-axios.defaults.baseURL = 'http://127.0.0.1:7529/api/'
+axios.defaults.baseURL = 'http://47.103.34.147:10056/api/'
 // 导入打字机
 import vuetyped from 'vue3typed'
 

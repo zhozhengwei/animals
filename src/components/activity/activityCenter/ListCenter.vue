@@ -2,7 +2,7 @@
   <div class="card card-blog card-plain">
     <div class="position-relative">
       <a class="d-block blur-shadow-image">
-        <img :src="activitys.cover">
+        <img :src="activitys.cover" style="width:100%;height: 100%;">
       </a>
     </div>
     <div class="card-body px-0 pt-4">
