@@ -22,7 +22,7 @@ const echartInit = () => {
     // xAxis:{
     // },
     title: {
-      text: "Echarts例子环图",
+      text: "账务",
       left: "center",
       top: "center",
     },
@@ -36,15 +36,15 @@ const echartInit = () => {
         data: [
           {
             value: 335,
-            name: "A",
+            name: "游客",
           },
           {
             value: 234,
-            name: "B",
+            name: "用户",
           },
           {
             value: 1548,
-            name: "C",
+            name: "组织",
           },
         ],
         radius: ["40%", "70%"],
