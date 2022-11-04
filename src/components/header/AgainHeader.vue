@@ -942,7 +942,7 @@ export default defineComponent({
   },
   data() {
     return {
-      id: this.user == null? 0: this.user.id,
+      id: this.user == null? 0: this.user.uid,
     };
   },
   setup(props) {
