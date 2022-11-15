@@ -15,7 +15,7 @@
               <a href="javascript:;" class="text-darker">{{blogs.title}}</a>
             </h3>
             <p style="word-wrap:break-word;">
-              {{ contentV(blogs.introduction) }}<router-link :to="{path: '/media/list/alone', query:{id}}" class="text-darker icon-move-right text-sm">阅读更多
+              {{ contentV(blogs.introduction) }}<router-link :to="{path: '/media/list/alone', query:{id}}" class="text-darker icon-move-right text-sm"><a @click="lookCount(blogs.id)">阅读更多</a>
                 <i class="fas fa-arrow-right text-xs ms-1"></i>
               </router-link>
             </p>
@@ -57,6 +57,8 @@
 
 <script>
 import {defineComponent} from "vue";
+import API from "../../plugins/axios/index.js";
+
 
 export default defineComponent({
   name:"NewPapers",
@@ -80,6 +82,14 @@ export default defineComponent({
         return(val)=>{
             return val.length > 20 ? (val).toString().substr(0,190)+ '....': val
         }
+    }
+  },
+  methods: {
+    lookCount(id){
+      API({
+        url: "article/updateLookCount/"+id,
+        method: "get"
+      })
     }
   }
 })

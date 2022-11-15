@@ -73,15 +73,16 @@
             <br/>
             <div class="card-body p-5 pt-0">
               {{newpaper.text}}
+              <p v-html="newpaper.text"></p>
             </div>
             <a-divider />
             <div class="card-body p-5">
               <a-list
                 class="comment-list"
-                v-if="commentList.length"
-                :header="`${commentList.length} ${comments.length > 1 ? 'replies' : 'reply'}`"
+                v-if="comments.length"
+                :header="`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`"
                 item-layout="horizontal"
-                :data-source="commentList"
+                :data-source="comments"
               >
                 <template #renderItem="{ item }">
                   <a-list-item>
@@ -142,9 +143,9 @@
                       <!-- end -->
                       <template #datetime>
                         <a-tooltip
-                          :title="item.datetime.format('YYYY-MM-DD HH:mm:ss')"
+                          :title="item.datetime"
                         >
-                          <span>{{ item.datetime.fromNow() }}</span>
+                          <span>{{ item.datetime }}</span>
                         </a-tooltip>
                       </template>
                     </a-comment>
@@ -194,6 +195,7 @@ import { defineComponent, ref } from "vue";
 import relativeTime from "dayjs/plugin/relativeTime";
 import AgainFooter from "@/components/AgainFooter.vue";
 import NavDefault from "@/components/nav/NavDefault.vue";
+import { useRouter } from 'vue-router'
 import { message } from "ant-design-vue";
 import API from "../../plugins/axios/index.js";
 
@@ -221,6 +223,7 @@ data(){
     const value1 = ref("");
     const ifshow = ref(false);
     const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+    const router = useRouter()
 
     const handleSubmit = () => {
       if (!value.value) {
@@ -247,15 +250,12 @@ data(){
           },
           ...comments.value,
         ];
-        for(var i = 0; i < comments.value.length; i++){
-          this.commentList.push(comments.value[i]);
-        }
         //添加评论
         API({
           url: "articleComment/save",
           method: "post",
           data: {
-            aid: this.newpaper.id,
+            aid: router.currentRoute.value.query.id,
             uid: userinfo.uid,
             content: value.value,
             datetime: dayjs().fromNow(),
@@ -361,7 +361,7 @@ data(){
       method: "get"
     }).then((res)=>{
       console.log("收到的数据", res.data.data);
-      this.commentList = res.data.data;
+      this.comments = res.data.data;
       console.log("========>", res.data.data.children);
       this.children = res.data.data.children;
     })

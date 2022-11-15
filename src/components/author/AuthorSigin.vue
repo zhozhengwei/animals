@@ -7,7 +7,7 @@
               <div class="col-lg-3 col-md-5 position-relative my-auto">
                 <img
                   class="img border-radius-lg max-width-200 w-100 position-relative z-index-2"
-                  :src="userinfo.avatar"
+                  :src="user.avatar"
                   alt="bruce"
                 />
               </div>
@@ -17,7 +17,7 @@
                 <div
                   class="d-flex justify-content-between align-items-center mb-2"
                 >
-                  <h4 class="mb-0">{{userinfo.username}}</h4>
+                  <h4 class="mb-0">{{user.username}}</h4>
                   <div class="d-block">
                     <button
                       type="button"
@@ -57,30 +57,30 @@
   </section>
   <a-drawer width="640" placement="right" :closable="false" :visible="visible" @close="onClose">
     <p :style="[pStyle, pStyle2]">用户信息</p>
-    <p :style="pStyle">Personal</p>
+    <p :style="pStyle">个人信息</p>
     <a-row>
       <a-col :span="12">
-        <description-item title="用户名" :content="userinfo.username" />
+        <description-item title="用户名" :content="user.username" />
       </a-col>
       <a-col :span="12">
-        <description-item title="邮箱" :content="userinfo.email" />
+        <description-item title="邮箱" :content="user.email" />
       </a-col>
     </a-row>
     <a-row>
       <a-col :span="12">
-        <description-item title="电话" :content="userinfo.phone" />
+        <description-item title="电话" :content="user.phone" />
       </a-col>
       <a-col :span="12">
-        <description-item  v-if="userinfo.gender === '1'" title="性别" content="男" />
-        <description-item  v-if="userinfo.gender === '0'" title="性别" content="女" />
-        <description-item  v-if="userinfo.gender === null" title="性别" content="未知" />
+        <description-item  v-if="user.gender === '1'" title="性别" content="男" />
+        <description-item  v-if="user.gender === '0'" title="性别" content="女" />
+        <description-item  v-if="user.gender === null" title="性别" content="未知" />
       </a-col>
     </a-row>
     <a-row>
       <a-col :span="12">
         <description-item
           title="Message"
-          content="Make things as simple as possible but no simpler."
+          content="信息列表"
         />
       </a-col>
     </a-row>
@@ -96,7 +96,7 @@
     :before-upload="beforeUpload"
     @change="handleChange"
   >
-    <img v-if="userinfo.avatar" :src="userinfo.avatar" style="width:130px;height:130px;" alt="avatar" />
+    <img v-if="user.avatar" :src="user.avatar" style="width:130px;height:130px;" alt="avatar" />
     <div v-else>
       <loading-outlined v-if="loading"></loading-outlined>
       <plus-outlined v-else></plus-outlined>
@@ -250,28 +250,28 @@ export default defineComponent({
     LoadingOutlined
   },
   created(){
-    API({
-      url: "member/info/"+this.id,
-      method: "get",
-      headers:{
-        'token': localStorage.getItem('token')
-      }
-    }).then((res)=>{
-      console.log("=======res.data.data ==>",res.data.data)
-      this.userinfo = res.data.data;
-    })
+    // API({
+    //   url: "member/info/"+this.id,
+    //   method: "get",
+    //   headers:{
+    //     'token': localStorage.getItem('token')
+    //   }
+    // }).then((res)=>{
+    //   console.log("=======res.data.data ==>",res.data.data)
+    //   this.userinfo = res.data.data;
+    // })
   },
   updated(){
-    API({
-      url: "member/info/"+this.id,
-      method: "get",
-      headers:{
-        'token': localStorage.getItem('token')
-      }
-    }).then((res)=>{
-      console.log("=======res.data.data ==>",res.data.data)
-      this.userinfo = res.data.data;
-    })
+    // API({
+    //   url: "member/info/"+this.id,
+    //   method: "get",
+    //   headers:{
+    //     'token': localStorage.getItem('token')
+    //   }
+    // }).then((res)=>{
+    //   console.log("=======res.data.data ==>",res.data.data)
+    //   this.userinfo = res.data.data;
+    // })
   }
 })
 </script>
