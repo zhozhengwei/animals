@@ -11,7 +11,7 @@
                       "
                     ></div>
                     <div class="card-body pt-12">
-                      <h4 class="text-white"><router-link :to="{ path: '/biology/animals', query: { id: 1 } }">陆地动物</router-link></h4>
+                      <h4 class="text-white"><router-link :to="{ path: '/biology/animals', query: { id: 1 } }" class="text-white">陆地动物</router-link></h4>
                       <a-divider style="height: 7px; background-color: #7cb305" />
                     </div>
                   </div>
@@ -27,7 +27,7 @@
                       "
                     ></div>
                     <div class="card-body pt-12">
-                      <h4 class="text-white"><router-link  :to="{ path: '/biology/animals', query: { id: 2 } }">海洋动物</router-link></h4>
+                      <h4 class="text-white"><router-link  :to="{ path: '/biology/animals', query: { id: 2 } }" class="text-white">海洋动物</router-link></h4>
                       <a-divider style="height: 7px; background-color: #7cb305" />
                     </div>
                   </div>
@@ -43,7 +43,7 @@
                       "
                     ></div>
                     <div class="card-body pt-12">
-                      <h4 class="text-white"><router-link :to="{ path: '/biology/animals', query: { id: 3 } }">两栖动物</router-link></h4>
+                      <h4 class="text-white"><router-link :to="{ path: '/biology/animals', query: { id: 3 } }" class="text-white">两栖动物</router-link></h4>
                       <a-divider style="height: 7px; background-color: #7cb305" />
                     </div>
                   </div>
@@ -62,7 +62,7 @@
                       "
                     ></div>
                     <div class="card-body pt-12">
-                      <h4 class="text-white"><router-link :to="{ path: '/biology/animals', query: { id: 4 } }">淡水动物</router-link></h4>
+                      <h4 class="text-white"><router-link :to="{ path: '/biology/animals', query: { id: 4 } }" class="text-white">淡水动物</router-link></h4>
                       <a-divider style="height: 7px; background-color: #7cb305" />
                     </div>
                   </div>
@@ -78,7 +78,7 @@
                       "
                     ></div>
                     <div class="card-body pt-12">
-                      <h4 class="text-white"><router-link :to="{ path: '/biology/animals', query: { id: 5 } }"></router-link>野生动物</h4>
+                      <h4 class="text-white"><router-link :to="{ path: '/biology/animals', query: { id: 5 } }" class="text-white">野生动物</router-link></h4>
                       <a-divider style="height: 7px; background-color: #7cb305" />
                     </div>
                   </div>
@@ -94,7 +94,7 @@
                       "
                     ></div>
                     <div class="card-body pt-12">
-                      <h4 class="text-white"><router-link to="/humanity/book">人文教育</router-link></h4>
+                      <h4 class="text-white"><router-link to="/humanity/book" class="text-white">人文教育</router-link></h4>
                       <a-divider style="height: 7px; background-color: #7cb305" />
                     </div>
                   </div>
