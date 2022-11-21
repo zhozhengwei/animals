@@ -26,11 +26,11 @@
                     >
             </h3>
             <p class="text-justify" style="word-wrap:break-word;">
-                {{contentV(blogs.introduction)}}<router-link :to="{path:'/blog/sigin',query:{id}}"> 阅读更多 </router-link>
+                {{contentV(blogs.introduction)}}<router-link :to="{path:'/blog/sigin',query:{id}}"> <a @click="lookCount(blogs.id)">阅读更多</a> </router-link>
             </p>
             <div class="author">
                     <a href="javascript:;" class="avatar avatar-sm rounded-circle me-2">
-                        <img alt="Image placeholder" src="https://joeschmoe.io/api/v1/male/random">
+                        <img alt="Image placeholder" :src="blogs.avatar">
                     </a>
                     <p class="text-gradient text-dark mb-4 text-sm" style="margin-top: 2%">
                        <a href="javascript:;" class="text-primary icon-move-right">{{blogs.username}}</a>  • {{blogs.createTime}}
@@ -51,7 +51,7 @@
 
 <script>
 import { MessageFilled,EyeFilled } from '@ant-design/icons-vue';
-
+import API from "../../plugins/axios/index.js";
 import { defineComponent } from 'vue';
 
 
@@ -75,7 +75,13 @@ export default defineComponent({
     methods: {
       tosigin() {
          this.$router.push("/blog/sigin");
-      }
+      },
+      lookCount(id){
+      API({
+        url: "article/updateLookCount/"+id,
+        method: "get"
+      })
+    }
     },
   computed: {
     contentV(){

@@ -15,6 +15,8 @@
   </template>
    
   <script>
+  //declare module 'area-data';
+  // const pcaa = require('area-data');
   import { pcaa } from 'area-data'
   import util from './util'
    
@@ -71,6 +73,7 @@
     watch: {
       value(val) {
         if (this.canEmit(this.value)) this.setDefaultValue()
+        console.log("======地址====>",val);
       },
       showLevel() {
         this.init()
@@ -143,7 +146,9 @@
         return ifEmit
       },
       handleChange(resArr) {
+        console.log("====地址数据====>",resArr)
         const res = this.procesValue(resArr)
+        console.log("====地址==+++==数据====>",res)
         this.oldData = res
         this.$emit('input', res)
         this.$emit('on-change', res)

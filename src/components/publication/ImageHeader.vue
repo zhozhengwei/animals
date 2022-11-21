@@ -22,36 +22,18 @@
 
   <div class="container">
     <div class="row bg-white shadow-lg mt-n6 border-radius-md pb-4 p-3 mx-sm-0 mx-1 position-relative">
-      <div class="col-lg-3 mt-lg-n2 mt-2">
-        <label class="">图片形象</label>
-        <select class="form-control" name="choices-leave" id="choices-leave" placeholder="Departure">
-          <option value="Choice 1" selected="">虎</option>
-          <option value="Choice 2">狮子</option>
-          <option value="Choice 3">狼</option>
-          <option value="Choice 4">马</option>
-        </select>
-      </div>
-      <div class="col-lg-3 mt-lg-n2 mt-2">
-        <label class="">图片风格</label>
-        <select class="form-control" name="choices-to" id="choices-to" placeholder="Destination">
-          <option value="Choice 1" selected="">艺术</option>
-          <option value="Choice 2">自然</option>
-          <option value="Choice 3">动画</option>
-          <option value="Choice 4">科幻</option>
-        </select>
-      </div>
-      <div class="col-lg-3 mt-lg-n2 mt-2">
+      
+      
+      <div class="col-lg-12 mt-lg-n2 mt-2">
         <label class="">搜索</label>
 
         <div class="input-group">
           <span class="input-group-text" style="z-index: 0;"><i class="fas fa-search fa-2x"></i></span>
-          <input class="form-control datepicker" placeholder="Please select date" type="text" >
+          <input class="form-control datepicker" placeholder="Please select date" type="text" v-model.trim="title" >
         </div>
 
       </div>
-      <div class="col-lg-3 d-flex align-items-center my-auto">
-        <button type="button" class="btn bg-gradient-dark w-100 btn-lg mb-0 m4 mt-3">搜索</button>
-      </div>
+      
     </div>
   </div>
 </header>
@@ -59,15 +41,45 @@
 </template>
 
 <script>
+
+import API from "../../plugins/axios/index.js";
+// 节流函数
+const delay = (function() {
+ let timer = 0;
+ return function(callback, ms) {
+ clearTimeout(timer);
+ timer = setTimeout(callback, ms);
+ };
+})();
+
 export default {
   name:"ImageHeader",
-  data(){
-    return{
-
-    }
+  data() {
+    return {
+      title:''
+    };
   },
-  components:{
-
+  watch:{
+    title(){
+      delay(()=>{
+        this.fetchData();
+      }, 300);
+    },
+  },
+  components: {},
+  methods: {
+    async fetchData(val){
+      API({
+        url:"imageInformation/listSearch",
+        method: "post",
+        data: {
+          name:this.title
+        },
+      }).then((res)=>{
+        console.log("响应数据：", res.data.data);
+        this.$store.commit("SET_IMAGES",res.data.data);
+      })
+    }
   }
 }
 </script>

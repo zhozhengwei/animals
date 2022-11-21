@@ -72,7 +72,6 @@
             </div>
             <br/>
             <div class="card-body p-5 pt-0">
-              {{newpaper.text}}
               <p v-html="newpaper.text"></p>
             </div>
             <a-divider />

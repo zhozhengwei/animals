@@ -59,17 +59,19 @@
             
             <!-- 活动的板块 -->
             <h4 class="mt-5" align="left">活动</h4>
-            <a href="javascript::">
+            <router-link v-for="item in activity" :key="item" :to='{path: "/activity/specific/sigin",query: {id:item.id}}' >
               <div class="card justify-content-center mb-3">
                 <div class="card-body p-3">
-                  <h6 class="mb-0" align="left">测试</h6>
-                  <p class="mb-0 text-body" align="left">日期</p>
+                  <h6 class="mb-0" align="left">{{item.title}}</h6>
+                  <p class="mb-0 text-body" align="left">{{item.start}}</p>
                 </div>
                 <div class="position-absolute end-0 me-3">
                   <i class="fas fa-angle-right"></i>
                 </div>
               </div>
-            </a>
+            </router-link>  
+              
+
             <!-- 头条新闻 不同的形式的展示形式 -->
             <h4 class="mt-5" align="left">头条新闻</h4>
             <div class="card card-plain card-blog mt-4" v-for="item in host" :key="item">
@@ -97,13 +99,7 @@
             <!-- todo 底部的标签 -->
             <h4 class="mt-5 mb-4" align="left">标签</h4>
             
-            <span class="badge badge-secondary">测试</span>&nbsp;&nbsp;&nbsp;
-            <span class="badge badge-secondary">测试</span>&nbsp;&nbsp;&nbsp;
-            <span class="badge badge-secondary">测试</span>&nbsp;&nbsp;&nbsp;
-            <span class="badge badge-secondary">测试</span>&nbsp;&nbsp;&nbsp;
-            <span class="badge badge-secondary">测试</span>
-            
-            
+            <span class="badge badge-secondary me-3" v-for="item in tagList" :key="item">{{item.name}}</span>
           </div>
         </div>
       </div>
@@ -124,7 +120,9 @@ export default {
       pageInfo: {},
       blogList: [],
       articleList:[],
-      host: []
+      host: [],
+      tagList:[],
+      activity:[]
     }
   },
   setup(){
@@ -144,13 +142,27 @@ export default {
   created(){
     this.initData(1);
     this.newData(1);
+    API({
+      url: "tag/list",
+      method: "get"
+    }).then((res)=>{
+      console.log("收到的标签数据", res.data.data);
+      this.tagList = res.data.data;
+    })
+    API({
+      url: "activity/listPerson",
+      method: "get"
+    }).then((res)=>{
+      console.log("收到的活动数据", res.data.data);
+      this.activity = res.data.data;
+    })
   },
   methods: {
     initData: function (pageNum) {
       API({
         url: "article/list?pageNum=" + pageNum,
         method: "post",
-        data: { type: 0 },
+        data: { type: 2 },
       }).then((res) => {
         console.log("收到的数据博客数据", res.data.data);
         this.blogList = res.data.data.list;

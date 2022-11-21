@@ -2,26 +2,42 @@
   <section class="py-5 mt-5">
     <div class="container">
       <div class="row">
-        <lightgallery
-    :settings="{ speed: 500, plugins: plugins }"
+        
+
+  <div class="col-lg-4 mb-lg-0 mb-4"
+  v-for="item in imageInformation"
+      :key="item">
+
+    
+    <div class="card">
+    <lightgallery
+    :settings="{ speed: 300, plugins: plugins }"
     :onInit="onInit"
     :onBeforeSlide="onBeforeSlide"
+    class="full-background"
   >
     <a
-      v-for="item in imageInformation"
-      :key="item"
+      
       data-lg-size="1406-1390"
       class="gallery-item"
       :data-src="item.url"
-      data-sub-html="<h4>Photo by - <a href='https://unsplash.com/@entrycube' >item.name</a></h4> <p> Location - <a href='https://unsplash.com/s/photos/fushimi-inari-taisha-shrine-senbontorii%2C-68%E7%95%AA%E5%9C%B0-fukakusa-yabunouchicho%2C-fushimi-ward%2C-kyoto%2C-japan'>Fushimi Ward, Kyoto, Japan</a></p>"
+      :data-sub-html="contentText(item.name,item.introduction)"
     >
       <img
         class="img-responsive"
-        src="https://images.unsplash.com/photo-1581894158358-5ecd2c518883?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=240&q=80"
+        style="width: 100%;"
+        :src="item.url"
       />
     </a>
 
   </lightgallery>
+    <div class="card-body pt-3">
+  
+    </div>
+    </div>
+    
+
+  </div>
 
   <ul class="pagination pagination-primary mt-4 ml-2">
           <li class="page-item">
@@ -59,10 +75,30 @@ export default {
   name:"ImageContent",
   data: () => ({
     plugins: [lgZoom, lgVideo],
-    imageInformation:[]
+    imageInformation:[],
+    pageInfo:{}
   }),
   components:{
     Lightgallery
+  },
+  created(){
+    this.initData(1);
+  }, 
+  computed:{
+    steta(){
+      return this.$store.state.imageinfor.list
+    },
+    stetaImage(){
+      return this.$store.state.imageinfor
+    }
+  },
+  watch:{
+    steta(newValue){
+      this.imageInformation = newValue;
+    },
+    stetaImage(newValue){
+      this.pageInfo = newValue;
+    }
   },
   methods: {
     onInit: () => {
@@ -75,13 +111,17 @@ export default {
       API({
         url: "imageInformation/listQuery?pageNum=" + pageNum,
         method: "post",
-        data: { type: 1 },
+        data: { type: 1,
+        classType: '1' },
       }).then((res) => {
         console.log("收到的数据", res.data.data);
         this.imageInformation = res.data.data.list;
         console.log("收到的数据列表===>", this.imageInformation);
         this.pageInfo = res.data.data;
       });
+    },
+    contentText(val,infor){
+      return "<h4>图片 by - <a href='#' >"+val+"</a></h4> <p> Location - <a href='#'>"+infor+"</a></p>"
     }
   },
 }

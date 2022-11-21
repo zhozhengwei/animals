@@ -28,8 +28,7 @@
   <div class="container">
         <div class="row">
           <div class="col-lg-8 ms-auto me-auto">
-            <p class="text-dark">
-              {{activity.content}}
+            <p class="text-dark" v-html="activity.content">
             </p>
           </div>
         </div>
@@ -56,7 +55,7 @@ export default {
     toAttend(){
       this.$router.push({
         path:"/activity/specific/sigin/attend",
-        query: this.id
+        query: {id:this.id}
       })
     }
   },

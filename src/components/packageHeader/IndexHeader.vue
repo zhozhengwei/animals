@@ -2,7 +2,7 @@
   <header class="header-2">
 
              <!-- style="background-image: url('https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/1754/curved.jpg')" -->
-  <div class="page-header min-vh-75 relative" style="background-image: url('https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/1754/curved.jpg')">
+  <div class="page-header min-vh-75 relative" style="background-image: url('https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/1754/378803.jpg')">
     <!-- 字体代码 -->
     <div class="container">
       <div class="row">

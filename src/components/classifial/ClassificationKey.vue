@@ -226,6 +226,7 @@ export default {
         method: "get"
       }).then((res)=>{
         console.log("收到的属的数据", res.data.data);
+        this.bos = res.data.data;
       })
       this.searchAniaml(1)
     },

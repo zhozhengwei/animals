@@ -18,7 +18,7 @@
     </div>
     <!-- 管理员信息更新于请求更新 -->
     <!-- http://www.gov.cn/gzdt/2012-12/14/content_2290434.htm -->
-    <div class="row mt-5">
+    <div class="row mt-5 mb-4">
       <div class="col-sm-6 col-lg-4 mt-lg-0 mt-4" v-for="item in linkList" :key="item">
         <img class="width-48-px mb-3" src="../../assets/img/logos/small-logos/logo-atlassian.svg">
         <h5>{{item.name}}</h5>
@@ -26,8 +26,8 @@
         <a :href="item.linkUrl">{{item.name}}</a>
       </div>
     </div>
-  </div>
-  <ul class="pagination pagination-info">
+    <br/>
+    <ul class="pagination pagination-info">
       <li class="page-item">
         <a class="page-link" href="javascript:;" aria-label="Previous">
           <span aria-hidden="true">
@@ -48,6 +48,9 @@
         </a>
       </li>
     </ul>
+  </div>
+
+ 
 </section>
 <!-- -------- END Features w/ 6 cols w/ company logos & title & text -------- -->
     <!-- 页脚 -->

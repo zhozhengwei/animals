@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <!-- 文章目录 -->
-        <div class="col-lg-3 mb-lg-0 mb-3">
+        <!-- <div class="col-lg-3 mb-lg-0 mb-3">
           <ul
             class="
               nav
@@ -17,10 +17,10 @@
           >
             
           </ul>
-        </div>
+        </div> -->
         <!-- 文章文本 -->
-        <div class="col-lg-9">
-          <div class="card shadow-lg mb-5">
+        <div class="col-lg-8 col-md-10 mx-auto pb-5">
+          <div class="card shadow-lg">
             <!-- 渲染的效果 -->
             <div class="card-header bg-gradient-info p-5 position-relative">
               <!-- 文章封面 -->
@@ -32,7 +32,7 @@
               <h2 class="text-white mb-0">{{article.title}}</h2>
               <p class="text-gradient text-dark mb-2 text-sm"> by <a href="javascript:;" class="ms-1"><span class="font-weight-bold text-info">{{article.username}}</span></a> • {{article.lookCount}} loook • {{article.commentCount}} comment • {{article.createTime}} time</p>
               <p class="text-white opacity-8 mb-1">
-                <a-tag v-for="item in tag" :key="item" color="#2db7f5">item.title</a-tag>
+                <a-tag v-for="item in tag" :key="item" color="#2db7f5">{{item.title}}</a-tag>
               </p>
               <!-- 头部特效 -->
               <div class="position-absolute w-100 z-index-1 bottom-0 ms-n5">
@@ -93,17 +93,17 @@
               </div>
             </div>
             <div class="card-body p-5">
-              {{article.text}}
+              <p v-html="article.text"></p>
               <a-divider />
             </div>
             <!-- 评论 -->
             <div class="card-body p-5">
               <a-list
                 class="comment-list"
-                v-if="commentList.length"
-                :header="`${commentList.length} ${comments.length > 1 ? 'replies' : 'reply'}`"
+                v-if="comments.length"
+                :header="`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`"
                 item-layout="horizontal"
-                :data-source="commentList"
+                :data-source="comments"
               >
                 <template #renderItem="{ item }">
                   <a-list-item>
@@ -164,9 +164,9 @@
                       <!-- end -->
                       <template #datetime>
                         <a-tooltip
-                          :title="item.datetime.format('YYYY-MM-DD HH:mm:ss')"
+                          :title="item.datetime"
                         >
-                          <span>{{ item.datetime.fromNow() }}</span>
+                          <span>{{ item.datetime }}</span>
                         </a-tooltip>
                       </template>
                     </a-comment>
@@ -178,7 +178,7 @@
               <a-comment>
                 <template #avatar>
                   <a-avatar
-                    src="https://joeschmoe.io/api/v1/random"
+                    :src="userinfo == null ? '#' : userinfo.avatar"
                     alt="Han Solo"
                   />
                 </template>
@@ -212,6 +212,7 @@ import dayjs from "dayjs";
 import { defineComponent, ref } from "vue";
 import { message } from "ant-design-vue";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useRouter } from 'vue-router'
 import API from "../../../plugins/axios/index.js"
 
 dayjs.extend(relativeTime);
@@ -236,6 +237,7 @@ data(){
     const value1 = ref("");
     const ifshow = ref(false);
     const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+    const router = useRouter()
 
     const handleSubmit = () => {
       if (!value.value) {
@@ -262,15 +264,12 @@ data(){
           },
           ...comments.value,
         ];
-        for(var i = 0; i < comments.value.length; i++){
-          this.commentList.push(comments.value[i]);
-        }
         //添加评论
         API({
           url: "articleComment/save",
           method: "post",
           data: {
-            aid: this.newpaper.id,
+            aid: router.currentRoute.value.query.id,
             uid: userinfo.uid,
             content: value.value,
             datetime: dayjs().fromNow(),
@@ -347,6 +346,7 @@ data(){
       handleSubmit1,
       submitting1,
       childrenList,
+      userinfo,
       ifshow,
       toshow: true,
       value1
@@ -373,7 +373,7 @@ data(){
       method: "get"
     }).then((res)=>{
       console.log("收到的数据", res.data.data);
-      this.commentList = res.data.data;
+      this.comments = res.data.data;
       console.log("========>", res.data.data.children);
       this.children = res.data.data.children;
     })

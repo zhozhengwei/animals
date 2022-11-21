@@ -8,16 +8,17 @@
             <div class="position-relative">
               <a class="d-block blur-shadow-image">
                 <img
-                  :src="item.images[0]"
+                  :src="item.images[0].url"
                   alt="img-blur-shadow"
                   class="img-fluid shadow border-radius-lg"
+                  style="width:100%;height:200px;"
                 />
               </a>
             </div>
             <div class="card-body px-1 pt-3">
-              <a href="javascript:;">
+              <router-link :to="{path:'/biology/animals/alone',query:{id:item.id}}">
                 <h5>{{item.name}}</h5>
-              </a>
+              </router-link>
               <p style="word-wrap:break-word;">{{item.biology}}</p>
             </div>
           </div>
@@ -62,9 +63,25 @@ export default {
   name: "AnimalInformationList",
   data() {
     return {
-      biologyList: this.$store.state.animals,
+      biologyList: [],
       pageInfo: {}
     };
+  },
+  computed:{
+    steta(){
+      return this.$store.state.animals.list;
+    },
+    stetaAnimal(){
+      return this.$store.state.animals;
+    }
+  },
+  watch:{
+    steta(newValue){
+      this.biologyList = newValue;
+    },
+    stetaAnimal(newValue){
+      this.pageInfo = newValue;
+    }
   },
   components: {},
   created(){

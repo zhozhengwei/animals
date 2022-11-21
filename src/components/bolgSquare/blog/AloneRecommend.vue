@@ -5,14 +5,14 @@
           <div class="col-9 text-center mx-auto">
             <h3 class="mb-5">博文推荐</h3>
           </div>
-          <div class="col-lg-4 mb-lg-0 mb-4">
+          <div class="col-lg-4 mb-lg-0 mb-4" v-for="item in list" :key="item">
             <div class="card">
               <div
                 class="card-header p-0 mx-3 mt-3 position-relative z-index-1"
               >
                 <a href="javascript:;" class="d-block blur-shadow-image">
                   <img
-                    src="../../../assets/img/anastasia.jpg"
+                    :src="item.cover"
                     class="img-fluid border-radius-md"
                     alt="anastasia"
                   />
@@ -21,28 +21,30 @@
               <div class="card-body">
                 <span
                   class="text-gradient text-primary text-uppercase text-xs font-weight-bold"
-                  >House</span
+                  ></span
                 >
-                <a
-                  href="javascript:;"
+                <router-link :to="{path:'/blog/sigin',query:{id:item.id}}">
+                  <a
+                @click="lookCount(item.id)"
                   class="card-title mt-3 h5 d-block text-darker"
                 >
-                  标题
+                {{item.title}}
                 </a>
-                <p class="card-description mb-4">
-                  测试测试测试测试测试测试测试
-                  测试测试测试测试测试测试测试
+                </router-link>
+                
+                <p class="card-description mb-4" style="word-wrap:break-word;">
+                  {{contentV(item.introduction)}}
                 </p>
                 <div class="author align-items-center">
                   <img
-                    src="../../../assets/img/team-2.jpg"
+                    :src="item.avatar"
                     alt="..."
                     class="avatar shadow"
                   />
                   <div class="name ps-2">
-                    <span>周政伟</span>
+                    <span>{{item.username}}</span>
                     <div class="stats">
-                      <small>发布于：{时间}</small>
+                      <small>发布于：{{item.createTime}}</small>
                     </div>
                   </div>
                 </div>
@@ -55,15 +57,40 @@
 </template>
 
 <script>
+import API from "../../../plugins/axios/index.js"
 export default {
   name:"AloneRecommend",
   data(){
     return{
-
+      list:[]
+    }
+  },
+  computed:{
+    contentV(){
+        return(val)=>{
+            return val.length > 20 ? (val).toString().substr(0,190)+ '....': val
+        }
     }
   },
   components:{
 
+  },
+  created(){
+    API({
+      url: "article/randomList",
+      method: "get"
+    }).then((res)=>{
+      console.log("收到的数据", res.data.data);
+      this.list = res.data.data;
+    })
+  },
+  methods: {
+      lookCount(id){
+      API({
+        url: "article/updateLookCount/"+id,
+        method: "get"
+      })
+    }
   }
 }
 </script>

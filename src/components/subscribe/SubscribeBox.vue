@@ -6,7 +6,6 @@
             <div class="card overflow-hidden mb-5">
               <div class="row">
                 <div class="col-lg-7">
-                  <form class="p-3" id="contact-form">
                     <div class="card-header px-4 py-sm-5 py-3">
                       <h2>Say Hi!</h2>
                       <p class="lead">我们想和你谈谈</p>
@@ -45,7 +44,6 @@
                       <div class="row">
                         <div class="col-md-6 text-end ms-auto">
                           <button
-                            type="submit"
                             @click="toMessage"
                             class="btn btn-round bg-gradient-info mb-0"
                           >
@@ -54,7 +52,6 @@
                         </div>
                       </div>
                     </div>
-                  </form>
                 </div>
                 <div
                   class="col-lg-5 position-relative bg-cover px-0"
@@ -163,31 +160,36 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { reactive } from "vue";
 import { message } from "ant-design-vue";
 import API from "../../plugins/axios/index.js";
 export default {
   name:"SubscribeBox",
   data(){
     return{
-      fromValue: {
-        name: "",
-        email: "",
-        content: "",
-      },
+      // fromValue: {
+      //   name: "",
+      //   email: "",
+      //   content: "",
+      // },
     }
   },
   setup(){
     const userinfo = JSON.parse(localStorage.getItem("userinfo"));
-    let showUser = ref(1);
+    const fromValue = reactive({
+      name: "",
+        email: "",
+        content: "",
+    })
+    let showUser = 1;
     if (userinfo === null) {
-      showUser = ref(0);
+      showUser = 0;
     }
     const toMessage = function () {
       if (
-        this.fromValue.name === null &&
-        this.fromValue.email === null &&
-        this.fromValue.content === null
+        fromValue.name === null &&
+        fromValue.email === null &&
+        fromValue.content === null
       ) {
         message.error({
           content: () => "所有参数不能为空！",
@@ -201,14 +203,14 @@ export default {
         url: "message/save",
         method: "post",
         data: {
-          name: this.fromValue.name,
-          email: this.fromValue.email,
-          content: this.fromValue.content,
+          name: fromValue.name,
+          email: fromValue.email,
+          content: fromValue.content,
           status: showUser,
         },
       }).then((res) => {
         console.log("成功请求返回数据===>", res.data.data);
-        if (res.data.data.code === 0) {
+        if (res.data.code === 0) {
           message.success({
             content: () => "消息发送成功",
             class: "custom-class",
@@ -229,7 +231,8 @@ export default {
       
     };
     return{
-        toMessage
+        toMessage,
+        fromValue
     }
   },
   components:{

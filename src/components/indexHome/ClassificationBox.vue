@@ -7,7 +7,7 @@
                     <div
                       class="full-background"
                       style="
-                        background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/baloon.jpg');
+                        background-image: url('https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/1754/103296.jpg');
                       "
                     ></div>
                     <div class="card-body pt-12">
@@ -23,7 +23,7 @@
                     <div
                       class="full-background"
                       style="
-                        background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/color-time.jpg');
+                        background-image: url('https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/1754/121834.jpg');
                       "
                     ></div>
                     <div class="card-body pt-12">
@@ -39,7 +39,7 @@
                     <div
                       class="full-background"
                       style="
-                        background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/color-ananas.jpg');
+                        background-image: url('https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/1754/30253.jpg');
                       "
                     ></div>
                     <div class="card-body pt-12">
@@ -58,7 +58,7 @@
                     <div
                       class="full-background"
                       style="
-                        background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/color-ananas.jpg');
+                        background-image: url('https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/1754/404196.jpg');
                       "
                     ></div>
                     <div class="card-body pt-12">
@@ -74,7 +74,7 @@
                     <div
                       class="full-background"
                       style="
-                        background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/color-banana.jpg'),
+                        background-image: url('https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/1754/468374.jpg');
                       "
                     ></div>
                     <div class="card-body pt-12">
@@ -90,7 +90,7 @@
                     <div
                       class="full-background"
                       style="
-                        background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/baloon.jpg'),
+                        background-image: url('https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/1754/718555.png');
                       "
                     ></div>
                     <div class="card-body pt-12">

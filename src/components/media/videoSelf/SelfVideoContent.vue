@@ -2,29 +2,38 @@
   <section class="py-5 mt-5">
     <div class="container">
       <div class="row">
-        <lightgallery
+        
+        <div class="col-lg-4 mb-lg-0 mb-4" v-for="item in videoList"
+            :key="item">
+            <div class="card">
+              
+            <lightgallery
           :settings="{ speed: 600, plugins: plugins }"
           :onInit="onInit"
           :onBeforeSlide="onBeforeSlide"
+          class="d-block"
         >
           <a
-            v-for="item in videoList"
-            :key="item"
+            
             class="gallery-item"
-            :data-video='{"source": [{"src":item.url, "type":"video/mp4"}], "attributes": {"preload": false, "controls": true}}'
+            :data-video='contentMp4(item.url)'
             data-poster=""
-            data-sub-html="<h4>video 你好 - <a href='https://unsplash.com/@katherine_xx11' >周政伟 </a></h4><p> 一个传的视频</p>"
+            :data-sub-html="contentText(item.introduction)"
           >
             <img
               width="400"
               class="img-responsive"
-              src="https://www.lightgalleryjs.com/images/demo/html5-video-poster.jpg"
+              :src="item.poster"
             />
 
           </a>
-
             
         </lightgallery>
+        <div class="card-body pt-3">
+
+        </div>
+         </div>
+      </div>
 
         <ul class="pagination pagination-primary mt-4 ml-2">
           <li class="page-item">
@@ -65,11 +74,28 @@ export default {
     return {
       plugins: [lgZoom, lgVideo],
       pageInfo: {},
-      videoList:[]
+      videoList:[],
+      content: `{"source": [{"src":"https://www.lightgalleryjs.com/videos/video1.mp4", "type":"video/mp4"}], "attributes": {"preload": false, "controls": true}}`
     };
   },
   components: {
     Lightgallery,
+  },
+  computed:{
+    steta(){
+      return this.$store.state.videoSelf.list
+    },
+    stetaBili(){
+      return this.$store.state.videoSelf
+    }
+  },
+  watch:{
+    steta(newValue){
+      this.videoList=newValue;
+    },
+    stetaBili(newValue){
+      this.pageInfo = newValue;
+    }
   },
   created(){
     this.initData(1);
@@ -92,6 +118,12 @@ export default {
         console.log("收到的数据视频列表===>", this.videoList);
         this.pageInfo = res.data.data;
       });
+    },
+    contentMp4(val){
+      return  '{"source": [{"src":"'+val+'", "type":"video/mp4"}], "attributes": {"preload": false, "controls": true}}'
+    },
+    contentText(val){
+      return "<h4> "+val+" </h4><span> 视频</span>"
     }
   },
 };

@@ -10,10 +10,8 @@
           <div class="buttons">
             <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-search fa-2x"></i></span>
-                                    <input type="text" class="form-control" placeholder="Search after">
+                                    <input type="text" class="form-control" placeholder="Search after" v-model.trim="title">
                                 </div>
-                                <br/>
-                                <button type="button" class="btn bg-gradient-info w-100 mb-0 h-100">搜索</button>
           </div>
         </div>
         <div class="col-lg-8 ps-5 pe-0">
@@ -42,15 +40,44 @@
 </template>
 
 <script>
+import API from "../../plugins/axios/index.js";
+// 节流函数
+const delay = (function() {
+ let timer = 0;
+ return function(callback, ms) {
+ clearTimeout(timer);
+ timer = setTimeout(callback, ms);
+ };
+})();
+
 export default {
   name:"PublicationHeader",
-  data(){
-    return{
-
-    }
+  data() {
+    return {
+      title:''
+    };
   },
-  components:{
-
+  watch:{
+    title(){
+      delay(()=>{
+        this.fetchData();
+      }, 300);
+    },
+  },
+  components: {},
+  methods: {
+    async fetchData(val){
+      API({
+        url:"publication/listSearch",
+        method: "post",
+        data: {
+          name:this.title
+        },
+      }).then((res)=>{
+        console.log("响应数据：", res.data.data);
+        this.$store.commit("SET_PBLICATION",res.data.data);
+      })
+    }
   }
 }
 </script>

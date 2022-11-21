@@ -15,16 +15,15 @@
                   height="370px"
                   scrolling="no"
                   frameborder="1"
-                  sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"
                   style="transform:scale(0.85);position: relative;right:12%"
                 ></iframe> -->
-                <div :v-html="item.url">
+                <div v-html="item.url">
                 </div>
                 <!-- <iframe src="//player.bilibili.com/player.html?aid=796196793&bvid=BV1rC4y187a9&cid=207222627&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe> -->
             </div>
             <div class="card-body px-1 pt-3">
               <p class="text-gradient text-dark mb-2 text-sm">
-                <a href="#" class="ms-1"><span class="font-weight-bold text-info">up主</span></a> • {{item.createdAt}} • <a href="#" class="ms-1"><span class="font-weight-bold text-info">地址</span></a>
+                <a href="#" class="ms-1"></a>  {{item.createdAt}}  <a href="#" class="ms-1"></a>
               </p>
               <p>{{item.introduction}}</p>
             </div>
@@ -67,11 +66,30 @@ export default {
     return {
          //记录是否全屏
       fullscreen: false,
-      pageInfo: {},
-      videoList:[]
+      pageInfo: this.$store.state.videoBilibili,
+      videoList: this.$store.state.videoBilibili.list
+    }
+  },
+  computed:{
+    steta(){
+      return this.$store.state.videoBilibili.list
+    },
+    stetaBili(){
+      return this.$store.state.videoBilibili
     }
   },
   components: {},
+  created(){
+    this.initData(1);
+  },
+  watch:{
+    steta(newValue){
+      this.videoList=newValue;
+    },
+    stetaBili(newValue){
+      this.pageInfo = newValue;
+    }
+  },
   methods: {
     screen(){
        let case1 = document.getElementById('con_lf_top_div')
@@ -102,7 +120,7 @@ export default {
       API({
         url: "videoInformation/listQuery?pageNum=" + pageNum,
         method: "post",
-        data: { type: 0 },
+        data: { type: 2 },
       }).then((res) => {
         console.log("收到的数据视频数据", res.data.data);
         this.videoList = res.data.data.list;

@@ -97,6 +97,7 @@
 <script>
 import API from "../../plugins/axios/index.js";
 import { defineComponent, reactive } from 'vue';
+import { useRouter } from 'vue-router'
 import { message } from "ant-design-vue";
 import FooterDefault from '@/components/footerCopy/FooterDefault.vue';
 export default defineComponent({
@@ -108,6 +109,7 @@ export default defineComponent({
   },
     setup() {
       const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+      const router = useRouter()
         const layout = {
             labelCol: {
                 span: 8,
@@ -136,6 +138,56 @@ export default defineComponent({
         });
         const onFinish = values => {
             console.log("Success:", values);
+            if (
+        formState.user.name === null &&
+        formState.user.newEmail === null &&
+        formState.user.email === null &&
+        formState.user.phone === null 
+      ) {
+        message.error({
+          content: () => "所有参数不能为空！",
+          class: "custom-class",
+          style: {
+            marginTop: "9vh",
+          },
+        });
+       
+      }
+      API({
+        url:"participateInActivity/save",
+        method: "post",
+        data: {
+          acid: router.currentRoute.value.query.id,
+          name: formState.user.name,
+          email: formState.user.email,
+          newEmail: formState.user.newEmail,
+          phone: formState.user.phone,
+          uid: userinfo.uid
+        }
+      }).then((res)=>{
+        console.log("成功请求返回数据===>", res.data.data);
+        if (res.data.code === 0) {
+            message.success({
+              content: () => "提交申请成功",
+              class: "custom-class",
+              style: {
+                marginTop: "9vh",
+              },
+            });
+            formState.user.name = null;
+            formState.user.email = null;
+            formState.user.newEmail = null;
+            formState.user.phone = null;
+          }else{
+            message.error({
+          content: () => res.data.message,
+          class: "custom-class",
+          style: {
+            marginTop: "9vh",
+          },
+        });
+          }
+      })
         };
 
         const attend = function(){

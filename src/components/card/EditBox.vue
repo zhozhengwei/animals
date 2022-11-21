@@ -12,10 +12,10 @@
       <edit-outlined key="edit" @click="toEdit" />
       <ellipsis-outlined key="ellipsis" />
     </template>
-    <a-card-meta title="用户名" description="自我描述（限制字数）">
+    <a-card-meta :title="userinfo.username" description="用户可以使用该组件前往创作">
       <template #avatar>
         <!-- 用户头像 -->
-        <a-avatar src="https://joeschmoe.io/api/v1/random" />
+        <a-avatar :src="userinfo.avatar" />
       </template>
     </a-card-meta>
   </a-card>
@@ -30,6 +30,12 @@ export default defineComponent({
     SolutionOutlined,
     EditOutlined,
     EllipsisOutlined,
+  },
+  setup(){
+    const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+    return{
+      userinfo
+    }
   },
   methods: {
     toEdit(){

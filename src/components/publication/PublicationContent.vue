@@ -60,6 +60,22 @@ export default {
   created(){
     this.initData(1);
   },
+  computed:{
+    steta(){
+      return this.$store.state.publicinfor.list 
+    },
+    stetaPblic(){
+      return this.$store.state.publicinfor
+    }
+  },
+  watch:{
+    steta(newValue){
+      this.publicationList = newValue;
+    },
+    stetaPblic(newValue){
+      this.pageInfo = newValue;
+    }
+  },
   methods:{
     initData: function(pageNum) {
     API({

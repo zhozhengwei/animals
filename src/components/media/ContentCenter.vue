@@ -86,17 +86,17 @@
 
           <!-- 活动的板块 -->
           <h4 class="mt-5" align="left">活动</h4>
-          <a href="javascript::">
-            <div class="card justify-content-center mb-3">
-              <div class="card-body p-3">
-                <h6 class="mb-0" align="left">测试</h6>
-                <p class="mb-0 text-body" align="left">日期</p>
+          <router-link v-for="item in activity" :key="item" :to='{path: "/activity/specific/sigin",query: {id:item.id}}' >
+              <div class="card justify-content-center mb-3">
+                <div class="card-body p-3">
+                  <h6 class="mb-0" align="left">{{item.title}}</h6>
+                  <p class="mb-0 text-body" align="left">{{item.start}}</p>
+                </div>
+                <div class="position-absolute end-0 me-3">
+                  <i class="fas fa-angle-right"></i>
+                </div>
               </div>
-              <div class="position-absolute end-0 me-3">
-                <i class="fas fa-angle-right"></i>
-              </div>
-            </div>
-          </a>
+            </router-link> 
           <!-- 头条新闻 不同的形式的展示形式 -->
 
           <!-- todo 底部的标签 -->
@@ -119,7 +119,8 @@ export default {
       //分页数据
       pageInfo: {},
       articleList:[],
-      host: {}
+      host: {},
+      activity:[]
     };
   },
   setup(){
@@ -138,6 +139,13 @@ export default {
   },
   created() {
     this.initData(1);
+    API({
+      url: "activity/listPerson",
+      method: "get"
+    }).then((res)=>{
+      console.log("收到的活动数据", res.data.data);
+      this.activity = res.data.data;
+    })
   },
   methods: {
     initData: function (pageNum) {

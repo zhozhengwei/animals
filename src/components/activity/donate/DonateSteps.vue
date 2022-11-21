@@ -16,27 +16,8 @@
       </div>
       <div class="col-md-5">
         <div class="blur-shadow-image ">
-          <!-- <div>
-            <a-steps :current="current">
-      <a-step v-for="item in steps" :key="item.title" :title="item.title" />
-    </a-steps>
-          </div>
-            
-    <div class="steps-content">
-      {{ steps[current].content }}
-    </div>
-    <div class="steps-action">
-      <a-button v-if="current < steps.length - 1" type="primary" @click="next">Next</a-button>
-      <a-button
-        v-if="current == steps.length - 1"
-        type="primary"
-        @click="message.success('Processing complete!')"
-      >
-        Done
-      </a-button>
-      <a-button v-if="current > 0" style="margin-left: 8px" @click="prev">Previous</a-button>
-    </div> -->
-    <Steps></Steps>
+          <!-- 步骤条的实现 -->
+        <Steps></Steps>
       </div>
     </div>
   </div>

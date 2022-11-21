@@ -58,8 +58,24 @@ export default {
   components:{
 
   },
+  computed:{
+    steta(){
+      return this.$store.state.bookinfor.list
+    },
+    stetaBook(){
+      return this.$store.state.bookinfor
+    }
+  },
   created(){
     this.initData(1);
+  },
+  watch:{
+    steta(newValue){
+      this.bookList = newValue;
+    },
+    stetaBook(newValue){
+      this.pageInfo = newValue;
+    }
   },
   methods:{
     initData: function(pageNum) {

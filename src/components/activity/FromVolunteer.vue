@@ -42,17 +42,16 @@
               </a-form-item>
               <!-- 地址保留框 -->
               <!-- 将地址的输入改成联阶成省市区（具体到县） -->
-              <a-form-item
-                :name="['user', 'address']"
-                label="地址"
-                :rules="[{ required: true }]"
-              >
-              <al-cascader
-              v-model:value="formState.user.address"
-                      level="2"
-                      data-type="all"
+              <a-space align="center" style="margin-left:27%" class="form-group">
+                <label>地址:</label>
+              <al-cascader 
+                      v-model="resArr"
+                      level="3"
+                      data-type="name"
                     />
-              </a-form-item>
+              </a-space>
+              
+            
               <a-form-item
                 :name="['user', 'introduction']"
                 label="自我介绍"
@@ -86,6 +85,11 @@ import AlCascader from "@/components/from/al-cascader.vue";
 import API from "../../plugins/axios/index.js";
 
 export default defineComponent({
+  data(){
+    return{
+      resArr:[]
+    }
+  },
   setup() {
     const userinfo = JSON.parse(localStorage.getItem("userinfo"));
     const layout = {
@@ -109,7 +113,7 @@ export default defineComponent({
     const formState = reactive({
       user: {
         name: '',
-        address: '',
+        address: '江苏省徐州市贾汪区',
         email: '',
         introduction: '',
         skillIntroduction: ''
@@ -141,7 +145,8 @@ export default defineComponent({
           name: formState.user.name,
           email: formState.user.email,
           address: formState.user.address,
-          introduction: formState.user.skillIntroduction,
+          introduction: formState.user.introduction,
+          skillIntroduction: formState.user.skillIntroduction,
           uid: userinfo.uid
         }
       }).then((res)=>{
@@ -154,9 +159,14 @@ export default defineComponent({
                 marginTop: "9vh",
               },
             });
+            formState.user.name = null;
+            formState.user.email = null;
+            formState.user.address = null;
+            formState.user.introduction = null;
+            formState.user.skillIntroduction = null;
           } else {
           message.error({
-            content: () => res.data.description,
+            content: () => res.data.message,
             class: "custom-class",
             style: {
               marginTop: "9vh",

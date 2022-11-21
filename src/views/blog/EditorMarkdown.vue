@@ -28,7 +28,7 @@
         <label><h4>封面上传:</h4></label>
         <a-upload
           v-model:file-list="fileList"
-          action="http://127.0.0.1:7529/api/imageInformation/upload"
+          action="http://47.103.34.147:10056/api/imageInformation/upload"
           list-type="picture"
           class="upload-list-inline"
         >
@@ -48,7 +48,7 @@
           @focus="focus"
         >
           <a-select-option value="1">新闻</a-select-option>
-          <a-select-option value="0">博客</a-select-option>
+          <a-select-option value="2">博客</a-select-option>
         </a-select>
       </div>
       <br/>
@@ -82,7 +82,8 @@
 
 <script>
 import { UploadOutlined } from '@ant-design/icons-vue';
-import { defineComponent,ref } from 'vue'
+import { defineComponent,ref } from 'vue';
+import { message } from "ant-design-vue";
 import NavDefault from "@/components/nav/NavDefault.vue";
 import AgainFooter from "@/components/AgainFooter.vue";
 import MdEditor from "md-editor-v3";
@@ -155,12 +156,28 @@ export default defineComponent({
         data:{
           title: this.title,
           introduction: this.information,
-          uid: this.userinfo.id,
-          cover: this.fileList[0],
+          uid: this.userinfo.uid,
+          cover: this.fileList[0].response.data,
           content: this.text,
           type: this.value1,
-          tagName: this.options
+          tagName: this.value3
         }
+      }).then((res)=>{
+        console.log("收到的数据", res.data.data);
+          if(res.data.code === 0){
+            message.success({
+          content: () => "发布成功",
+          class: "custom-class",
+          style: {
+            marginTop: "9vh",
+          },
+        });
+        }
+        this.title = null;
+        this.information = null;
+        this.fileList = null;
+        this.text = null;
+        this.value3 = null;
       })
     },
     async onUploadImg(files, callback) {
@@ -181,6 +198,7 @@ export default defineComponent({
             API({
               url: "imageInformation/upload",
               method: "post",
+              data: form,
               headers:{
                 'Content-Type': 'multipart/form-data'
               }

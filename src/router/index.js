@@ -55,10 +55,10 @@ const routes = [
         //beforeEnter(to,form.next)=>{判断是否登陆代码}，点击进入admin也面时，路由独享守卫启用
         beforeEnter:(to,form,next)=>{
             if (!localStorage.getItem('userinfo')) {
-                if (to.name == "login") {
+                if (to.name == "Login") {
                     next();
                 } else {
-                    router.push('login')
+                    router.push("/login")
                 }
             } else {
                 next();
@@ -107,10 +107,10 @@ const routes = [
         //beforeEnter(to,form.next)=>{判断是否登陆代码}，点击进入admin也面时，路由独享守卫启用
         beforeEnter:(to,form,next)=>{
             if (!localStorage.getItem('userinfo')) {
-                if (to.name == "login") {
+                if (to.name == "Login") {
                     next();
                 } else {
-                    router.push('login')
+                    router.push("/login")
                 }
             } else {
                 next();
@@ -143,10 +143,10 @@ const routes = [
         //beforeEnter(to,form.next)=>{判断是否登陆代码}，点击进入admin也面时，路由独享守卫启用
         beforeEnter:(to,form,next)=>{
             if (!localStorage.getItem('userinfo')) {
-                if (to.name == "login") {
+                if (to.name == "Login") {
                     next();
                 } else {
-                    router.push('login')
+                    router.push("/login")
                 }
             } else {
                 next();
@@ -187,10 +187,10 @@ const routes = [
         //beforeEnter(to,form.next)=>{判断是否登陆代码}，点击进入admin也面时，路由独享守卫启用
         beforeEnter:(to,form,next)=>{
             if (!localStorage.getItem('userinfo')) {
-                if (to.name == "login") {
+                if (to.name == "Login") {
                     next();
                 } else {
-                    router.push('login')
+                    router.push("/login")
                 }
             } else {
                 next();
@@ -254,6 +254,14 @@ const routes = [
         }
     },
     {
+        name: "AloneAnimals",
+        path: "/biology/animals/alone",
+        component: ()=> import("../views/animalClassification/BiologyAlone.vue"),
+        meta: {
+            title: "动物具体信息"
+        }
+    },
+    {
         name: "Action",
         path: "/biology/action",
         component: ()=> import("../views/animalClassification/YouCanAction.vue"),
@@ -264,10 +272,10 @@ const routes = [
         //beforeEnter(to,form.next)=>{判断是否登陆代码}，点击进入admin也面时，路由独享守卫启用
         beforeEnter:(to,form,next)=>{
             if (!localStorage.getItem('userinfo')) {
-                if (to.name == "login") {
+                if (to.name == "Login") {
                     next();
                 } else {
-                    router.push('login')
+                    router.push("/login")
                 }
             } else {
                 next();

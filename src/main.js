@@ -55,6 +55,9 @@ import './assets/img/apple-icon.png';
 
 const app = createApp(App);
 
+const $ = require('jquery');
+window.$ = $;
+
 app.use(vuetyped);
 // app.use(commonAxios);
 app.use(vue3videoPlay);

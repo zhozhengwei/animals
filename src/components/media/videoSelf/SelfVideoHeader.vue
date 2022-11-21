@@ -53,33 +53,62 @@
           mx-auto
         "
       >
-        <div class="col-lg-8 mt-lg-n2 mt-2">
+        <div class="col-lg-12 mt-lg-n2 mt-2">
           <label>搜索</label>
           <div class="input-group">
           <span class="input-group-text" style="z-index: 0;"><i class="fas fa-search fa-2x" aria-hidden="true"></i></span>
-          <input class="form-control" placeholder="Search" type="text" >
+          <input class="form-control" placeholder="Search" type="text" v-model.trim="title" >
         </div>
         </div>
-        <div class="col-lg-4 d-flex align-items-center mt-lg-auto mt-2">
+        <!-- <div class="col-lg-4 d-flex align-items-center mt-lg-auto mt-2">
           <button type="button" class="btn bg-gradient-primary w-100 mb-0">
             搜索
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
   </header>
 </template>
 
 <script>
+import API from "../../../plugins/axios/index.js";
+// 节流函数
+const delay = (function() {
+ let timer = 0;
+ return function(callback, ms) {
+ clearTimeout(timer);
+ timer = setTimeout(callback, ms);
+ };
+})();
+
 export default {
   name:"SelfVideoHeader",
-  data(){
-    return{
-
-    }
+  data() {
+    return {
+      title:''
+    };
   },
-  components:{
-
+  watch:{
+    title(){
+      delay(()=>{
+        this.fetchData();
+      }, 300);
+    },
+  },
+  components: {},
+  methods: {
+    async fetchData(val){
+      API({
+        url:"videoInformation/listTypeOne",
+        method: "post",
+        data: {
+          content:this.title
+        },
+      }).then((res)=>{
+        console.log("响应数据：", res.data.data);
+        this.$store.commit("SET_VIDEO",res.data.data);
+      })
+    }
   }
 }
 </script>
