@@ -170,7 +170,7 @@ export default defineComponent({
             marginTop: "9vh",
           },
         });
-        // location. reload();
+        location.reload();
       });
     };
     return {

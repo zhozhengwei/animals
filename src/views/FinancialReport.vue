@@ -25,10 +25,10 @@
           包括遗赠，长期合作计划和车辆、股票、债券和共同基金。在下面了解决更多信息
         </p>
 
-        <button type="button" class="btn btn-success btn-lg me-2">捐</button>
-        <button type="button" class="btn btn-success btn-lg me-2">遗赠</button>
-        <button type="button" class="btn btn-success btn-lg me-2">加入计划</button>
-        <button type="button" class="btn btn-success btn-lg me-2">更多的</button>
+        <button type="button" class="btn btn-success btn-lg me-2" @click="toDonate">捐</button>
+        <button type="button" class="btn btn-success btn-lg me-2" @click="toGiving">遗赠</button>
+        <button type="button" class="btn btn-success btn-lg me-2" @click="toGiving">加入计划</button>
+        <button type="button" class="btn btn-success btn-lg me-2" @click="toGiving">更多的</button>
         </div>
       </div>
     </div>
@@ -56,6 +56,18 @@ export default {
     AgainFooter,
     FinancialInformation,
     NavDefault
+},
+methods:{
+  toDonate(){
+      this.$router.push({
+        path: "/activity/donate"
+      })
+  },
+  toGiving(){
+      this.$router.push({
+        path: "/financial/giving"
+      })
+  }
 }
 }
 </script>

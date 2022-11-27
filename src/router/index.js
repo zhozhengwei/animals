@@ -82,6 +82,14 @@ const routes = [
         }
     },
     {
+        name: "Giving",
+        path: "/financial/giving",
+        component: ()=> import("../views/activity/GivingTo.vue"),
+        meta: {
+            title: "计划说明"
+        }
+    },
+    {
         name: "Apply",
         path: "/apply",
         component: ()=> import("../views/ApplyMember.vue"),

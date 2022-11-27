@@ -138,6 +138,17 @@
           />
             </div>
             <div class="form-group md-form">
+              <a-select
+          ref="select"
+          v-model:value="value1"
+          style="width: 120px"
+          @focus="focus"
+        >
+          <a-select-option value="2">组织</a-select-option>
+          <a-select-option value="1">个人</a-select-option>
+        </a-select>
+            </div>
+            <div class="form-group md-form">
                 <label for="surname-3" data-error="wrong" data-success="right">组织</label>
                 <input
                 id="surname-3"
@@ -221,6 +232,7 @@ export default defineComponent({
     let showWeixin = ref(false);
     let showBao = ref(false);
     let zhifu = 0;
+    const value1 = ref("1");
     const userinfo = JSON.parse(localStorage.getItem("userinfo"));
     
     const onClass = (val) => {
@@ -289,9 +301,9 @@ export default defineComponent({
           address: formValue.address,
           orginName: formValue.orginName,
           amount: formValue.amount,
-          type: 1,
+          type: value1,
           trade: traceNo,
-          uid: userinfo == undefined ? undefined : userinfo.uid
+          uid: userinfo == undefined ? 0 : userinfo.uid
         }
       }).then((res)=>{
         console.log("成功请求返回数据===>", res.data.data);
@@ -349,7 +361,8 @@ export default defineComponent({
       bao,
       submit,
       formValue,
-      onStarte
+      onStarte,
+      value1
     };
   },
   components: {

@@ -24,33 +24,27 @@
           </div>
         </div>
         <div class="col-sm-7 ms-auto text-end">
-          <ul class="pagination pagination-info">
-              <li class="page-item">
-                <a class="page-link" href="javascript:;" aria-label="Previous">
-                  <span aria-hidden="true">
-                    <!-- <i class="fa fa-angle-left" aria-hidden="true"></i> -->
-                    {{ pageInfo.total }} 条
-                  </span>
-                </a>
-              </li>
-              <li
-                v-for="i in pageInfo.pages"
-                @click.prevent="initData(i)"
-                :key="i"
-                :class="{ 'page-item  active': pageInfo.pageNum == i }"
-                class="page-item"
-              >
-                <a class="page-link">{{ i }}</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="javascript:;" aria-label="Next">
-                  <span aria-hidden="true">
-                    <!-- <i class="fa fa-angle-right" aria-hidden="true"></i> -->
-                    {{ pageInfo.pageNum }}/{{ pageInfo.pages }} 页
-                  </span>
-                </a>
-              </li>
-            </ul>
+          <ul class="pagination pagination-primary mt-4 ml-2">
+          <li class="page-item">
+            <a class="page-link" href="javascript:;" aria-label="Previous">
+              <span aria-hidden="true">
+                <!-- <i class="fa fa-angle-double-left" aria-hidden="true"></i> -->
+                {{pageInfo.total}} 条
+              </span>
+            </a>
+          </li>
+          <li v-for="i in pageInfo.pages" @click.prevent="initData(i)" :key="i" :class="{'page-item  active':pageInfo.pageNum==i}" class="page-item">
+            <a class="page-link">{{i}}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="javascript:;" aria-label="Next">
+              <span aria-hidden="true">
+                <!-- <i class="fa fa-angle-double-right" aria-hidden="true"></i> -->
+                {{pageInfo.pageNum}}/{{pageInfo.pages}} 页
+              </span>
+            </a>
+          </li>
+        </ul>
         </div>
       </div>
     </div>
